@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #cursor {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      background-color: blue;
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 501;
+    }
+
+    .content.first {
+      height: 100vh;
+      background-color: chartreuse;
+    }
+
+    .content.second {
+      height: 100vh;
+      background-color: burlywood;
+      position: relative;
+      z-index: 500;
+    }
+
+    #videoCursor {
+      height: 250px;
+      width: 150px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 499;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="cursor"></div>
+  <div id="videoCursor">
+    <iframe src="https://player.vimeo.com/video/1127104834?background=1&autoplay=1&muted=1&loop=1" frameborder="0"
+      allow="autoplay; fullscreen">
+    </iframe>
+  </div>
+
+  <section class="content first"></section>
+  <section class="content second"></section>
+</body>
+<script>
+  let cursor = document.getElementById("cursor");
+  let videoCursor = document.getElementById("videoCursor");
+
+  let contents = document.querySelectorAll(".content");
+
+  contents.forEach((content, index) => {
+    content.addEventListener("mousemove", (event) => {
+      if(index == 0){
+        videoCursor.style.left = `${event.clientX}px`;
+        videoCursor.style.top = `${event.clientY}px`;
+        videoCursor.style.display = "block";
+        cursor.style.display = "none"
+      }
+      else{
+        cursor.style.left= `${event.clientX}px`
+        cursor.style.top = `${event.clientY}px`
+        videoCursor.style.display = "none";
+        cursor.style.display = "block"
+      }
+    })
+  })
+
+
+</script>
+
+</html>

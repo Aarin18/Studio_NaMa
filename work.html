@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Work | Studio Namma</title>
+    <link rel="stylesheet" href="./nav.css" />
+    <style>
+      :root {
+        --ink: #111111;
+        --paper: rgb(234, 236, 237);
+        --line: rgba(17, 17, 17, 0.2);
+        --muted: #64686a;
+        --lime: #d8f45d;
+      }
+
+      body {
+        color: var(--ink);
+        background: #fff;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 5vw 60px;
+      }
+
+      .hero {
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 8vw;
+      }
+
+      .eyebrow,
+      .section-label,
+      .project-meta,
+      footer {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        max-width: 900px;
+        margin-top: 24px;
+        font-size: clamp(72px, 16vw, 240px);
+        line-height: 0.8;
+        letter-spacing: -0.04em;
+        text-align: center;
+      }
+
+      .animate {
+        transform: rotateX(90deg);
+        transition: transform 1s ease;
+        transform-origin: bottom;
+        opacity: 0;
+      }
+
+      .animate.show {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+
+      .work-section {
+        padding: 9vw 5vw;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-bottom: 32px;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(32px, 5vw, 76px);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        font-weight: 900;
+      }
+
+      .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .project-card {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        background: #c5c9ca;
+        min-height: 38vw;
+      }
+
+      .project-card .color-media,
+      .recent-card .color-media {
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .recent-card .color-media {
+        position: absolute;
+        inset: 0;
+      }
+
+      .project-card::after,
+      .recent-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 42%,
+          rgba(0, 0, 0, 0.75)
+        );
+      }
+
+      .project-card:hover .color-media,
+      .recent-card:hover .color-media {
+        transform: scale(1.06);
+      }
+
+      .project-info {
+        position: absolute;
+        z-index: 1;
+        inset: auto 22px 20px;
+        color: white;
+      }
+
+      .project-info h3 {
+        margin: 8px 0 5px;
+        font-size: clamp(28px, 4vw, 60px);
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+      }
+
+      .project-info p {
+        font-size: 15px;
+      }
+
+      .recent-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 38px 18px;
+      }
+
+      .recent-card {
+        display: block;
+      }
+
+      .recent-media {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        background: #c5c9ca;
+      }
+
+      .recent-card img {
+        position: absolute;
+        inset: 0;
+      }
+
+      .recent-card h3 {
+        margin-top: 13px;
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .recent-card p {
+        margin-top: 7px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .recent-projects {
+        position: relative;
+        min-height: 720px;
+        padding: 9vw 5vw 11vw;
+        overflow: hidden;
+        background: #000;
+        color: #2a2a2a;
+      }
+
+      .recent-projects .section-heading {
+        position: relative;
+        z-index: 1;
+        border-color: #2a2a2a;
+        color: #777;
+      }
+
+      .project-list {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        width: min(72%, 900px);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .project {
+        display: block;
+        width: 100%;
+        cursor: default;
+      }
+
+      .project h2 {
+        color: #2a2a2a;
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+        transition: color 0.3s ease;
+      }
+
+      .project.active h2 {
+        color: #e5e5e5;
+      }
+
+      .project-preview {
+        position: absolute;
+        top: 220px;
+        right: 5vw;
+        width: min(330px, 28vw);
+        aspect-ratio: 1;
+        overflow: hidden;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .project-preview.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .archives {
+        padding: 9vw 5vw 13vw;
+        background: #fff;
+        color: #111;
+      }
+
+      .archives-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-top: 1px solid #2a2a2a;
+        padding-top: 14px;
+        color: #777;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .archive-row {
+        display: flex;
+        min-height: 330px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        padding: 150px 0 0;
+      }
+
+      .archive-caption {
+        flex: 0 1 220px;
+        color: #64686a;
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+
+      .archive-images {
+        display: flex;
+        flex: 0 0 auto;
+        gap: 10px;
+        opacity: 0;
+        transform: translateX(100px);
+        transition:
+          transform 0.8s ease,
+          opacity 0.8s ease;
+      }
+
+      .archive-row.even .archive-images {
+        transform: translateX(-100px);
+      }
+
+      .archive-images .color-media {
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        opacity: 0;
+        object-fit: cover;
+        transform: translateX(20px);
+        transition:
+          transform 0.8s ease,
+          opacity 0.8s ease;
+      }
+
+      .archive-row.even .archive-images img {
+        transform: translateX(-20px);
+      }
+
+      .archive-images .color-media:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+
+      .archive-images .color-media:nth-child(2) {
+        transition-delay: 0.2s;
+      }
+
+      .archive-images .color-media:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+
+      .archive-row.show .archive-images {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .archive-row.show .archive-images .color-media {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .brand-outro {
+        position: relative;
+        width: 100%;
+        min-height: 44vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 50px 20px 92px;
+        background: #fff;
+        color: #111;
+      }
+
+      .wordmark {
+        margin: 0;
+        font-size: clamp(130px, 18vw, 360px);
+        font-weight: 900;
+        line-height: 0.8;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        transform: translateY(35px);
+        transition:
+          transform 1s ease,
+          opacity 1s ease;
+      }
+
+      .wordmark.show {
+        transform: translateY(0);
+      }
+
+      .outro-bar {
+        position: absolute;
+        right: 20px;
+        bottom: 22px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        color: #64686a;
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .whatsapp-button {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 4;
+        display: grid;
+        width: 58px;
+        height: 58px;
+        place-items: center;
+        color: white;
+        background: #1e1ee0;
+        border-radius: 50%;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        transition: transform 0.25s ease;
+      }
+
+      .whatsapp-button:hover {
+        transform: scale(1.1);
+      }
+
+      .whatsapp-button svg {
+        width: 27px;
+        height: 27px;
+        fill: currentColor;
+      }
+
+      @media (max-width: 760px) {
+        .content,
+        .work-section {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .featured-grid,
+        .recent-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .recent-projects {
+          min-height: 0;
+          padding: 20vw 20px 24vw;
+        }
+
+        .project-list {
+          width: 100%;
+        }
+
+        .project-preview {
+          top: auto;
+          right: 20px;
+          bottom: 28vw;
+          width: 42vw;
+        }
+
+        .archives {
+          padding: 20vw 20px 24vw;
+        }
+
+        .archive-row {
+          min-height: 0;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 28px;
+          padding-top: 110px;
+        }
+
+        .archive-row.even {
+          flex-direction: column-reverse;
+        }
+
+        .archive-caption {
+          flex-basis: auto;
+        }
+
+        .archive-images {
+          width: 100%;
+          flex-direction: column;
+          gap: 10px;
+          transform: translateX(35px);
+        }
+
+        .archive-row.even .archive-images {
+          transform: translateX(-35px);
+        }
+
+        .archive-images .color-media {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 1;
+          transform: translateX(15px);
+        }
+
+        .archive-row.even .archive-images .color-media {
+          transform: translateX(-15px);
+        }
+
+        .project-card {
+          min-height: 82vw;
+        }
+
+        .brand-outro {
+          min-height: 42vh;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
+        .wordmark {
+          font-size: 25vw;
+        }
+
+        .outro-bar {
+          right: 20px;
+          bottom: 18px;
+          left: 20px;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="content hero">
+      <span class="eyebrow">Studio Namma / Selected work</span>
+      <h1 class="animate">OUR<br />GAME</h1>
+    </section>
+
+    <main>
+      <section class="work-section">
+        <div class="section-heading animate">
+          <span class="section-label">01 / Featured projects</span>
+          <span>Scroll to explore</span>
+        </div>
+        <div class="featured-grid">
+          <a class="project-card animate" href="/work/matera">
+            <div class="color-media" style="background: #ff5c35"></div>
+          </a>
+          <a class="project-card animate" href="/work/silvr">
+            <div class="color-media" style="background: #f2c94c"></div>
+          </a>
+          <a class="project-card animate" href="/work/umbra">
+            <div class="color-media" style="background: #35b6a4"></div>
+          </a>
+          <a class="project-card animate" href="/work/field-notes">
+            <div class="color-media" style="background: #4f6dff"></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="recent-projects" aria-labelledby="recent-projects-title">
+        <div class="section-heading">
+          <span class="section-label" id="recent-projects-title"
+            >02 / Recent projects</span
+          >
+          <span>2024—2025</span>
+        </div>
+        <div class="project-list">
+          <div class="project" data-color="#ff5c35"><h2>AURORA</h2></div>
+          <div class="project" data-color="#f2c94c"><h2>MOSAIC</h2></div>
+          <div class="project" data-color="#35b6a4"><h2>VOLT</h2></div>
+          <div class="project" data-color="#4f6dff"><h2>KITE</h2></div>
+          <div class="project" data-color="#d85cff"><h2>PULSE</h2></div>
+          <div class="project" data-color="#ff8a3d"><h2>NOVA</h2></div>
+        </div>
+        <div class="project-preview" aria-hidden="true"></div>
+      </section>
+
+      <section class="work-section">
+        <div class="section-heading animate">
+          <span class="section-label">03 / More projects</span
+          ><span>2024—2025</span>
+        </div>
+        <div class="recent-grid">
+          <a class="recent-card animate" href="/work/arc"
+            ><div class="recent-media">
+              <div class="color-media" style="background: #ff8a3d"></div>
+            </div>
+          </a>
+          <a class="recent-card animate" href="/work/mono"
+            ><div class="recent-media">
+              <div class="color-media" style="background: #d85cff"></div>
+            </div>
+          </a>
+          <a class="recent-card animate" href="/work/kinfolk"
+            ><div class="recent-media">
+              <div class="color-media" style="background: #35b6a4"></div>
+            </div>
+          </a>
+          <a class="recent-card animate" href="/work/ora"
+            ><div class="recent-media">
+              <div class="color-media" style="background: #4f6dff"></div>
+            </div>
+          </a>
+          <a class="recent-card animate" href="/work/sonder"
+            ><div class="recent-media">
+              <div class="color-media" style="background: #f2c94c"></div>
+            </div>
+          </a>
+          <a class="recent-card animate" href="/work/northstar"
+            ><div class="recent-media">
+              <div class="color-media" style="background: #ff5c35"></div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <section class="archives" aria-labelledby="archives-title">
+      <div class="archives-heading">
+        <span id="archives-title">03 / Archives</span>
+        <span>Selected fragments</span>
+      </div>
+      <div class="archive-row odd">
+        <p class="archive-caption">POSOS, STARTUP. 2023.</p>
+        <div class="archive-images">
+          <div class="color-media" style="background: #ff5c35"></div>
+          <div class="color-media" style="background: #f2c94c"></div>
+          <div class="color-media" style="background: #35b6a4"></div>
+        </div>
+      </div>
+      <div class="archive-row even">
+        <p class="archive-caption">MALIBOU, BRAND SYSTEM. 2023.</p>
+        <div class="archive-images">
+          <div class="color-media" style="background: #4f6dff"></div>
+          <div class="color-media" style="background: #d85cff"></div>
+          <div class="color-media" style="background: #ff8a3d"></div>
+        </div>
+      </div>
+      <div class="archive-row odd">
+        <p class="archive-caption">ZEFIR, DIGITAL PRODUCT. 2022.</p>
+        <div class="archive-images">
+          <div class="color-media" style="background: #35b6a4"></div>
+          <div class="color-media" style="background: #4f6dff"></div>
+          <div class="color-media" style="background: #f2c94c"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-outro" aria-label="Studio Namma outro">
+      <h2 class="wordmark animate">NAMMA</h2>
+      <div class="outro-bar">
+        <span>We craft bold design &amp; clean Webflow.</span>
+        <span id="local-time">Paris, France&nbsp;&nbsp;--:--:--</span>
+      </div>
+    </section>
+
+    <script src="./nav.js"></script>
+    <script>
+      let animatedElements = document.querySelectorAll(".animate");
+
+      let observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting == true) {
+            entry.target.classList.add("show");
+          } else {
+            entry.target.classList.remove("show");
+          }
+        });
+      });
+
+      animatedElements.forEach((element) => {
+        observer.observe(element);
+      });
+
+      let projects = document.querySelectorAll(".project");
+      let projectPreview = document.querySelector(".project-preview");
+      let recentProjects = document.querySelector(".recent-projects");
+
+      projects.forEach((project) => {
+        project.addEventListener("mouseenter", (event) => {
+          let projectBounds = event.currentTarget.getBoundingClientRect();
+          let sectionBounds = recentProjects.getBoundingClientRect();
+
+          projects.forEach((item) => item.classList.remove("active"));
+          event.currentTarget.classList.add("active");
+          projectPreview.style.backgroundColor =
+            event.currentTarget.dataset.color;
+          projectPreview.style.top = `${projectBounds.top - sectionBounds.top}px`;
+          projectPreview.classList.add("visible");
+        });
+
+        project.addEventListener("mouseleave", (event) => {
+          event.currentTarget.classList.remove("active");
+          projectPreview.classList.remove("visible");
+        });
+      });
+
+      let archiveRows = document.querySelectorAll(".archive-row");
+      let archiveObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              archiveObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+
+      archiveRows.forEach((row) => archiveObserver.observe(row));
+
+      let cities = [
+        { name: "Paris, France", zone: "Europe/Paris" },
+        { name: "Los Angeles, USA", zone: "America/Los_Angeles" },
+        { name: "Barcelona, Spain", zone: "Europe/Madrid" },
+        { name: "Hong Kong", zone: "Asia/Hong_Kong" },
+      ];
+      let cityIndex = 0;
+      let localTime = document.querySelector("#local-time");
+
+      function updateTime() {
+        let city = cities[cityIndex];
+        let time = new Intl.DateTimeFormat("en-GB", {
+          timeZone: city.zone,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        }).format(new Date());
+        localTime.innerText = `${city.name}  ${time}`;
+      }
+
+      updateTime();
+      setInterval(updateTime, 1000);
+      setInterval(() => {
+        cityIndex = (cityIndex + 1) % cities.length;
+        updateTime();
+      }, 5000);
+    </script>
+  </body>
+</html>
