@@ -120,6 +120,142 @@
         min-height: 280px;
       }
     }
+
+    /* ===================== FOOTER ===================== */
+    :root {
+      --page-bg-soft: #f5f5f3;
+      --footer-bg: #111111;
+      --footer-fg: #f5f5f3;
+      --footer-muted: #8a8a88;
+    }
+
+    .footer {
+      background: var(--footer-bg);
+      color: var(--footer-fg);
+      padding: 120px 24px 40px;
+    }
+
+    .footer-cta {
+      text-align: center;
+      margin-bottom: 100px;
+    }
+
+    .footer-cta h2 {
+      font-size: clamp(42px, 8vw, 110px);
+      line-height: 1.02;
+      margin-bottom: 20px;
+    }
+
+    .footer-cta p {
+      color: var(--footer-muted);
+      font-size: 18px;
+      margin-bottom: 36px;
+    }
+
+    .footer-cta a.say-hello {
+      display: inline-block;
+      padding: 18px 44px;
+      border: 1px solid var(--footer-fg);
+      border-radius: 999px;
+      color: var(--footer-fg);
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-cta a.say-hello:hover {
+      background: var(--footer-fg);
+      color: var(--footer-bg);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      border-top: 1px solid rgba(245, 245, 243, 0.15);
+      padding-top: 50px;
+    }
+
+    .footer-col h4 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--footer-muted);
+      margin-bottom: 18px;
+    }
+
+    .footer-col p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--footer-muted);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      color: var(--footer-fg);
+      text-decoration: none;
+      font-size: 15px;
+      transition: opacity 0.25s ease;
+      opacity: 0.85;
+    }
+
+    .footer-col ul li a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .footer-col .email a {
+      color: var(--footer-fg);
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--footer-muted);
+      border-top: 1px solid rgba(245, 245, 243, 0.1);
+      padding-top: 24px;
+    }
+
+    .footer-bottom .brand {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer {
+        padding: 80px 20px 30px;
+      }
+    }
   </style>
 </head>
 
@@ -213,6 +349,56 @@
     <h1 class="animate">BRANDING</h1>
     <h1 class="animate">WEBFLOW</h1>
   </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer content stack">
+    <div class="footer-cta animate">
+      <h2>Let's work<br>together</h2>
+      <p>Work with us if average isn't your thing. Drop it, we'll build it!</p>
+      <a class="say-hello" href="mailto:hello@studionamma.com">Say hello</a>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <p>We are a creative studio based in Paris, Barcelona &amp; London.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/work">Work</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/studio">Studio</a></li>
+          <li><a href="/plans">Plans</a></li>
+          <li><a href="/approach">Approach</a></li>
+          <li><a href="/news">News</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li><a href="https://www.youtube.com/@GabrielSchemoul" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://www.linkedin.com/company/studio-namma" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/studio.namma/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="/legal">Legal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p class="email"><a href="mailto:hello@studionamma.com">hello@studionamma.com</a></p>
+        <p style="margin-top: 14px;">Big project? Crazy thought?<br>Or just feel like chatting?</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="brand">Studio Namma</span>
+      <span>Copyright 2026</span>
+    </div>
+  </footer>
 </body>
 <script src="./nav.js">
 </script>
