@@ -1,8 +1,8 @@
 let navbar = document.createElement("ul");
-navbar.setAttribute("id", "navbar");
+navbar.setAttribute("id", "nav");
 
 let menu = document.createElement("ul");
-menu.setAttribute("id", "menu");
+menu.setAttribute("id", "navMenu");
 
 const THEME_KEY = "studio-namma-theme";
 
@@ -11,7 +11,7 @@ function applyTheme(themeName) {
   document.body.classList.toggle("dark-mode", isDark);
   document.body.setAttribute("data-theme", themeName);
 
-  const themeToggle = document.getElementById("dark-mode-toggle");
+  const themeToggle = document.getElementById("themeBtn");
   if (themeToggle) {
     themeToggle.innerText = isDark ? "LIGHT MODE" : "DARK MODE";
   }
@@ -53,19 +53,19 @@ approachLink.addEventListener("click", () => {
   window.location.href = "./approach.html";
 });
 
-let li1 = document.createElement("li");
-li1.innerText = "STUDIO NAMMA";
+let brandName = document.createElement("li");
+brandName.innerText = "STUDIO NAMMA";
 
-let li2 = document.createElement("li");
-li2.innerText = "DARK MODE";
-li2.id = "dark-mode-toggle";
-li2.style.cursor = "pointer";
+let themeBtn = document.createElement("li");
+themeBtn.innerText = "DARK MODE";
+themeBtn.id = "themeBtn";
+themeBtn.style.cursor = "pointer";
 
-let li3 = document.createElement("li");
-li3.innerText = "MENU";
+let menuBtn = document.createElement("li");
+menuBtn.innerText = "MENU";
 
-let li4 = document.createElement("li");
-li4.innerText = "LET'S TALK!";
+let talkBtn = document.createElement("li");
+talkBtn.innerText = "LET'S TALK!";
 
 function mouseEffect(element) {
   element.addEventListener("mouseenter", () => {
@@ -85,25 +85,25 @@ function mouseEffect(element) {
   });
 }
 
-mouseEffect(li3);
-mouseEffect(li4);
+mouseEffect(menuBtn);
+mouseEffect(talkBtn);
 
-li3.addEventListener("click", () => {
-  if (li3.innerText == "MENU" || li3.innerText == "OPEN") {
+menuBtn.addEventListener("click", () => {
+  if (menuBtn.innerText == "MENU" || menuBtn.innerText == "OPEN") {
     menu.classList.add("show");
-    li3.innerText = "CLOSE";
+    menuBtn.innerText = "CLOSE";
   } else {
     menu.classList.remove("show");
-    li3.innerText = "OPEN";
+    menuBtn.innerText = "OPEN";
   }
 });
 
-li2.addEventListener("click", () => {
+themeBtn.addEventListener("click", () => {
   const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
   applyTheme(nextTheme);
 });
 
-navbar.append(li1, li2, li3, li4);
+navbar.append(brandName, themeBtn, menuBtn, talkBtn);
 document.body.append(navbar);
 
 const savedTheme = localStorage.getItem(THEME_KEY) || "light";

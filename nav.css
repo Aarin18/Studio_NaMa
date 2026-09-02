@@ -45,7 +45,7 @@ body.dark-mode .site-footer {
   color: var(--ink);
 }
 
-#navbar {
+#nav {
   display: flex;
   width: 100vw;
   justify-content: space-between;
@@ -60,11 +60,11 @@ body.dark-mode .site-footer {
   color: var(--navbar-text);
 }
 
-#navbar > p {
+#nav > p {
   cursor: pointer;
 }
 
-#menu {
+#navMenu {
   position: fixed;
   width: 100vw;
   height: 90vh;
@@ -80,13 +80,13 @@ body.dark-mode .site-footer {
   z-index: 1;
 }
 
-#menu > li {
+#navMenu > li {
   font-size: 100px;
   font-weight: 900;
   color: var(--ink);
 }
 
-#menu.show {
+#navMenu.show {
   top: 9%;
 }
 
