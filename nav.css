@@ -33,6 +33,18 @@ body.dark-mode {
   color: var(--ink);
 }
 
+body.dark-mode .page-shell,
+body.dark-mode .hero,
+body.dark-mode .intro,
+body.dark-mode .services,
+body.dark-mode .testimonial,
+body.dark-mode .cta-section,
+body.dark-mode .brand-outro,
+body.dark-mode .site-footer {
+  background: var(--page-bg);
+  color: var(--ink);
+}
+
 #navbar {
   display: flex;
   width: 100vw;

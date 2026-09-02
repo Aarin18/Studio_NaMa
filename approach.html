@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Approach | Studio Namma</title>
+    <link rel="stylesheet" href="./nav.css" />
+    <style>
+      :root {
+        --page-bg: #0f1115;
+        --page-bg-soft: #171b20;
+        --panel: #181d22;
+        --ink: #f3f4f6;
+        --muted: #aeb7c0;
+        --line: rgba(255, 255, 255, 0.15);
+        --navbar-text: #f3f4f6;
+        --footer-color-1: #ff5e3a;
+        --footer-color-2: #f3c64e;
+        --footer-color-3: #36b5a7;
+        --footer-color-4: #5271ff;
+        --footer-color-5: #a66ee8;
+        --footer-color-6: #e9764c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--page-bg);
+        color: var(--ink);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .eyebrow,
+      .section-label,
+      .step-tag,
+      .phase-label,
+      .outro-bar,
+      .site-footer nav {
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .animate {
+        transform: rotateX(90deg);
+        transform-origin: bottom;
+        opacity: 0;
+        transition:
+          transform 1s ease,
+          opacity 1s ease;
+      }
+      .animate.show {
+        transform: rotateX(0);
+        opacity: 1;
+      }
+
+      .hero {
+        position: relative;
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        padding: 110px 5vw 100px;
+        text-align: center;
+      }
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(5.5rem, 16vw, 16rem);
+        font-weight: 900;
+        line-height: 0.76;
+        letter-spacing: -0.075em;
+      }
+      .hero .eyebrow {
+        position: absolute;
+        top: 100px;
+        color: var(--muted);
+      }
+      .scroll-indicator {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        transform: translateX(-50%);
+        color: var(--muted);
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .mouse {
+        position: relative;
+        width: 27px;
+        height: 43px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+      .mouse::after {
+        content: "";
+        position: absolute;
+        top: 9px;
+        left: 50%;
+        width: 4px;
+        height: 8px;
+        border-radius: 9px;
+        background: var(--ink);
+        transform: translateX(-50%);
+        animation: scroll-dot 1.5s ease-in-out infinite;
+      }
+      @keyframes scroll-dot {
+        from {
+          opacity: 0;
+          transform: translate(-50%, 0);
+        }
+        25% {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          transform: translate(-50%, 14px);
+        }
+      }
+
+      .intro,
+      .process,
+      .timeline-section,
+      .cta-section {
+        padding: 12vw 5vw;
+      }
+      .intro {
+        background: var(--page-bg-soft);
+      }
+      .intro-inner,
+      .process-inner,
+      .timeline-inner,
+      .cta-shell,
+      .site-footer {
+        max-width: 1240px;
+        margin: auto;
+      }
+      .section-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .intro-copy {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+        gap: 8vw;
+        margin-top: 10vw;
+      }
+      .intro h2,
+      .process h2,
+      .timeline-section h2 {
+        margin: 0;
+        font-size: clamp(3.4rem, 8vw, 9rem);
+        font-weight: 900;
+        line-height: 0.82;
+        letter-spacing: -0.07em;
+      }
+      .intro p {
+        max-width: 720px;
+        margin: 0;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        font-size: clamp(1.25rem, 2.2vw, 2rem);
+        line-height: 1.22;
+      }
+
+      .process {
+        padding-bottom: 5vw;
+      }
+      .process-heading {
+        max-width: 740px;
+        margin: 10vw 0 8vw;
+      }
+      .process-list {
+        border-top: 1px solid var(--line);
+      }
+      .process-step {
+        display: grid;
+        grid-template-columns: 0.35fr 1fr 1fr;
+        gap: 28px;
+        padding: 32px 0 38px;
+        border-bottom: 1px solid var(--line);
+      }
+      .step-tag {
+        align-self: start;
+        color: var(--muted);
+      }
+      .step-title {
+        margin: 0;
+        font-size: clamp(1.8rem, 3.4vw, 4rem);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -0.055em;
+      }
+      .process-step p {
+        max-width: 410px;
+        margin: 0;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .timeline-section {
+        background: var(--page-bg-soft);
+      }
+      .timeline-heading {
+        margin: 10vw 0 8vw;
+        max-width: 790px;
+      }
+      .timeline {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        position: relative;
+        gap: 20px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        right: 8%;
+        left: 8%;
+        height: 1px;
+        background: var(--line);
+      }
+      .phase {
+        position: relative;
+        padding-top: 32px;
+      }
+      .phase::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 0;
+        z-index: 1;
+        width: 13px;
+        height: 13px;
+        border: 2px solid var(--page-bg-soft);
+        border-radius: 50%;
+        background: var(--ink);
+      }
+      .phase-label {
+        color: var(--ink);
+      }
+      .phase p {
+        margin: 12px 0 0;
+        max-width: 190px;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .cta-section {
+        padding-bottom: 3vw;
+      }
+      .cta-shell {
+        padding-top: 30px;
+        border-top: 1px solid var(--line);
+      }
+      .cta-row {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 22px;
+      }
+      .cta-row h2 {
+        margin: 10px 0 0;
+        font-size: clamp(3rem, 6vw, 6rem);
+        line-height: 0.88;
+        letter-spacing: -0.065em;
+      }
+      .primary-link {
+        display: inline-flex;
+        min-width: 180px;
+        height: 54px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--page-bg);
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .footer-color-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .footer-color {
+        min-height: 160px;
+        border-radius: 18px;
+        background: var(--footer-color);
+      }
+      .brand-outro {
+        display: flex;
+        min-height: 34vh;
+        align-items: center;
+        justify-content: center;
+        padding: 38px 20px 16px;
+        overflow: hidden;
+      }
+      .wordmark {
+        margin: 0;
+        font-size: clamp(5.5rem, 18vw, 26rem);
+        font-weight: 900;
+        line-height: 0.8;
+        letter-spacing: -0.07em;
+        white-space: nowrap;
+      }
+      .site-footer {
+        padding: 8px 5vw 34px;
+        border-top: 1px solid var(--line);
+      }
+      .outro-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding-top: 18px;
+        color: var(--muted);
+      }
+      .site-footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      @media (max-width: 760px) {
+        .intro,
+        .process,
+        .timeline-section,
+        .cta-section {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+        .intro-copy,
+        .process-step {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+        .intro-copy {
+          margin-top: 18vw;
+        }
+        .process-heading,
+        .timeline-heading {
+          margin: 18vw 0 14vw;
+        }
+        .process-step {
+          padding: 28px 0;
+        }
+        .timeline {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+        .timeline::before {
+          top: 6px;
+          bottom: 6px;
+          left: 6px;
+          right: auto;
+          width: 1px;
+          height: auto;
+        }
+        .phase {
+          min-height: 124px;
+          padding: 0 0 28px 30px;
+        }
+        .phase::before {
+          top: 0;
+          left: 0;
+        }
+        .phase p {
+          max-width: 310px;
+        }
+        .cta-row,
+        .outro-bar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .footer-color-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-color {
+          min-height: 130px;
+        }
+        .site-footer {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <span class="eyebrow">Studio Namma / Approach</span>
+      <h1 class="animate">Sharp Minds<br />Iconic moves</h1>
+      <div class="scroll-indicator" aria-label="Scroll to explore">
+        <span>Scroll</span><span class="mouse" aria-hidden="true"></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="our-approach">
+        <div class="intro-inner">
+          <div class="section-top">
+            <span class="section-label">01 / The way we work</span
+            ><span>Strategy with intent</span>
+          </div>
+          <div class="intro-copy">
+            <h2 id="our-approach" class="animate">Our approach</h2>
+            <p>
+              There is no off-the-shelf route to work that matters. We shape a
+              tailored process around your ambition, your audience, and the
+              opportunity in front of you—using clear thinking and close
+              collaboration instead of rigid formulas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="process" aria-labelledby="process-title">
+        <div class="process-inner">
+          <div class="section-top">
+            <span class="section-label">02 / Our process</span
+            ><span>Five moves</span>
+          </div>
+          <h2 id="process-title" class="process-heading animate">
+            Make it as simple as possible
+          </h2>
+          <div class="process-list">
+            <article class="process-step animate">
+              <span class="step-tag">01 / Start</span>
+              <h3 class="step-title">Own your difference</h3>
+              <p>
+                We find the truth that makes your business unmistakable, then
+                give it a clear place to stand.
+              </p>
+            </article>
+            <article class="process-step animate">
+              <span class="step-tag">02 / Idea</span>
+              <h3 class="step-title">Challenge everything</h3>
+              <p>
+                Good answers begin with better questions. We test assumptions,
+                surface opportunity, and make room for the unexpected.
+              </p>
+            </article>
+            <article class="process-step animate">
+              <span class="step-tag">03 / Design</span>
+              <h3 class="step-title">Beyond aesthetics</h3>
+              <p>
+                Every visual choice has a job to do: build recognition, create
+                feeling, and guide people to act.
+              </p>
+            </article>
+            <article class="process-step animate">
+              <span class="step-tag">04 / Coding</span>
+              <h3 class="step-title">Performance mindset</h3>
+              <p>
+                We turn the idea into a fast, focused digital experience that
+                feels as good in use as it does in concept.
+              </p>
+            </article>
+            <article class="process-step animate">
+              <span class="step-tag">05 / Optimisation</span>
+              <h3 class="step-title">Never satisfied, never done</h3>
+              <p>
+                Launch is a starting point. We learn from what happens next and
+                keep refining the work where it counts.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="timeline-section" aria-labelledby="timeline-title">
+        <div class="timeline-inner">
+          <div class="section-top">
+            <span class="section-label">03 / Project rhythm</span
+            ><span>From first hello to live</span>
+          </div>
+          <h2 id="timeline-title" class="timeline-heading animate">
+            Momentum, made visible
+          </h2>
+          <div class="timeline">
+            <article class="phase animate">
+              <span class="phase-label">01 / Kick-off</span>
+              <p>
+                We align on the challenge, people, priorities, and the
+                definition of a great outcome.
+              </p>
+            </article>
+            <article class="phase animate">
+              <span class="phase-label">02 / Research</span>
+              <p>
+                We gather signals, uncover the useful tension, and frame the
+                opportunity.
+              </p>
+            </article>
+            <article class="phase animate">
+              <span class="phase-label">03 / Design</span>
+              <p>
+                We turn strategy into a distinct system, experience, and point
+                of view.
+              </p>
+            </article>
+            <article class="phase animate">
+              <span class="phase-label">04 / Webflow</span>
+              <p>
+                We build the detail into a responsive, expressive, and
+                easy-to-run site.
+              </p>
+            </article>
+            <article class="phase animate">
+              <span class="phase-label">05 / Delivery</span>
+              <p>
+                We launch with confidence, hand over clearly, and leave space to
+                evolve.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="cta-section" aria-labelledby="cta-title">
+      <div class="cta-shell">
+        <div class="cta-row">
+          <div>
+            <span class="section-label">Let's work together</span>
+            <h2 id="cta-title" class="animate">Build something bold.</h2>
+          </div>
+          <a class="primary-link" href="#">Start a project</a>
+        </div>
+        <div class="footer-color-grid" aria-label="Footer media placeholders">
+          <div
+            class="footer-color"
+            style="--footer-color: var(--footer-color-1)"
+          ></div>
+          <div
+            class="footer-color"
+            style="--footer-color: var(--footer-color-2)"
+          ></div>
+          <div
+            class="footer-color"
+            style="--footer-color: var(--footer-color-3)"
+          ></div>
+          <div
+            class="footer-color"
+            style="--footer-color: var(--footer-color-4)"
+          ></div>
+          <div
+            class="footer-color"
+            style="--footer-color: var(--footer-color-5)"
+          ></div>
+          <div
+            class="footer-color"
+            style="--footer-color: var(--footer-color-6)"
+          ></div>
+        </div>
+      </div>
+      <div class="brand-outro" aria-label="Studio Namma outro">
+        <h2 class="wordmark animate">NAMMA</h2>
+      </div>
+      <footer class="site-footer">
+        <div class="outro-bar">
+          <span>We craft bold design &amp; digital growth.</span>
+          <nav aria-label="Footer navigation">
+            <a href="./home.html">Home</a><a href="./work.html">Work</a
+            ><a href="./services.html">Services</a
+            ><a href="./approach.html">Approach</a><a href="#">Instagram</a
+            ><a href="#">LinkedIn</a>
+          </nav>
+        </div>
+      </footer>
+    </section>
+    <script src="./nav.js"></script>
+    <script>
+      const animatedEls = document.querySelectorAll(".animate");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) =>
+            entry.target.classList.toggle("show", entry.isIntersecting),
+          );
+        },
+        { threshold: 0.18 },
+      );
+      animatedEls.forEach((element) => observer.observe(element));
+    </script>
+  </body>
+</html>

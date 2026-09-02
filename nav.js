@@ -34,7 +34,7 @@ let workLink = createListElement("WORK");
 let servicesLink = createListElement("SERVICES");
 createListElement("STUDIO");
 createListElement("PLANS");
-createListElement("APPROACH");
+let approachLink = createListElement("APPROACH");
 createListElement("NEWS");
 
 homeLink.addEventListener("click", () => {
@@ -47,6 +47,10 @@ workLink.addEventListener("click", () => {
 
 servicesLink.addEventListener("click", () => {
   window.location.href = "./services.html";
+});
+
+approachLink.addEventListener("click", () => {
+  window.location.href = "./approach.html";
 });
 
 let li1 = document.createElement("li");
